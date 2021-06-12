@@ -1,6 +1,8 @@
 import java.util.LinkedList;
 import java.util.ArrayList;
 
+//test commit
+
 public class TSPAlgorithm
 {
     public static void main(String[] args)
@@ -56,7 +58,7 @@ public class TSPAlgorithm
         {
             currentMatrix[i] = adjMatrix[i].clone();
         }
-        
+
         // create linkedlist for rows and cols, this helps track nodes
         LinkedList<Integer> rows = new LinkedList<>();
         LinkedList<Integer> cols = new LinkedList<>();
