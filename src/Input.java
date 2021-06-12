@@ -1,3 +1,5 @@
+package TspF;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -53,14 +55,14 @@ class Input extends JPanel implements ActionListener {
         try {
             if (ae.getSource() == confirmButton) {
                 int intValue = Integer.parseInt(inputTF.getText());
-                if (intValue >= 2) {
+                if (intValue >= 2 && intValue <= 26) {
                     frame.setVisible(false);
                     frame.dispose();
                     TSP app = new TSP(intValue);
                 }
                 else {
                     inputTF.setText("");
-                    JOptionPane.showMessageDialog(frame, "Please enter a value greater than or equal to 2", "Alert", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, "Please enter a value between 2-26", "Alert", JOptionPane.WARNING_MESSAGE);
                 }
             }
             else if (ae.getSource() == randomButton) {
