@@ -1,3 +1,5 @@
+//package TspF;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -64,11 +66,11 @@ class Input extends JPanel implements ActionListener {
                 }
             }
             else if (ae.getSource() == randomButton) {
-                int min = 2, max = 5;
-                int value = (int)Math.floor(Math.random()*(max-min+1)+min);
+//                int min = 2, max = 5;
+//                int value = (int)Math.floor(Math.random()*(max-min+1)+min);
                 frame.setVisible(false);
                 frame.dispose();
-                TSP app = new TSP(value);
+                TSP app = new TSP(5);
             }
         }
         catch (NumberFormatException NFE) {
