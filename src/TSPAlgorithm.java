@@ -1,5 +1,4 @@
-import java.util.LinkedList;
-import java.util.ArrayList;
+import java.util.*;
 
 //test commit
 
@@ -39,6 +38,8 @@ public class TSPAlgorithm
 
     private int[][] adjMatrix; // the original matrix
     private LinkedList<StepMatrix> stepMatrices; // saves the matrix at each step
+    private ListIterator<StepMatrix> iterator;
+    private StepMatrix current;
     private int[] path; // the solution
     private int pathCost;
 
@@ -46,6 +47,7 @@ public class TSPAlgorithm
     {
         this.adjMatrix = adjMatrix;
         stepMatrices = new LinkedList<>();
+        stepMatrices.add(new StepMatrix(adjMatrix, -1, -1, null, null, null, null));
         path = new int[adjMatrix.length + 1];
         pathCost = 0;
     }
@@ -194,12 +196,12 @@ public class TSPAlgorithm
             int removedRow = rows.get(highPenaltyY);
             cols.remove(highPenaltyX);
             rows.remove(highPenaltyY);
-            stepMatrices.add(new StepMatrix(newMatrix, removedRow, removedCol, allRowMin, allColMin));
+            stepMatrices.add(new StepMatrix(newMatrix, removedRow, removedCol, allRowMin, allColMin, rows.stream().mapToInt(Integer::intValue).toArray(), cols.stream().mapToInt(Integer::intValue).toArray()));
         }
 
         // create path
         int[][] coords = new int[stepMatrices.size()][2];
-        for(int i = 0; i < stepMatrices.size(); i++)
+        for(int i = 1; i < stepMatrices.size(); i++)
         {
             coords[i][0] = stepMatrices.get(i).getRemovedRow();
             coords[i][1] = stepMatrices.get(i).getRemovedCol();
@@ -226,7 +228,70 @@ public class TSPAlgorithm
         {
             pathCost += adjMatrix[coord[0]][coord[1]];
         }
+
+        // create iterator
+        iterator = stepMatrices.listIterator();
+        current = iterator.next();
     }
+
+    public StepMatrix begin()
+    {
+        if(!stepMatrices.isEmpty())
+        {
+            while(iterator.hasPrevious())
+            {
+                current = iterator.previous();
+            }
+        }
+        return current;
+    }
+
+    public StepMatrix end()
+    {
+        if(!stepMatrices.isEmpty())
+        {
+            while(iterator.hasNext())
+            {
+                current = iterator.next();
+            }
+        }
+        return current;
+    }
+
+    public StepMatrix next()
+    {
+        if(iterator.hasNext())
+        {
+            StepMatrix step = iterator.next();
+            if(step == current)
+            {
+                step = iterator.next();
+            }
+            current = step;
+        }
+        return current;
+    }
+
+    public StepMatrix prev()
+    {
+        if(iterator.hasPrevious())
+        {
+            StepMatrix step = iterator.previous();
+            if(step == current)
+            {
+                step = iterator.previous();
+            }
+            current = step;
+        }
+        return current;
+    }
+
+    public StepMatrix current()
+    {
+        return current;
+    }
+
+    // Getters
 
     public int[][] getAdjMatrix()
     {
