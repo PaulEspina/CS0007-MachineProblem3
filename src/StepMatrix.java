@@ -3,8 +3,8 @@ public class StepMatrix
     private final int[][] matrix; // the reduced matrix at this step
     private final int[] rowLabel;
     private final int[] colLabel;
-    private int[] rowMin; // the minimum of each row before reducing the matrix
-    private int[] colMin; // the minimum of each col before reducing the matrix
+    private final int[] rowMin; // the minimum of each row before reducing the matrix
+    private final int[] colMin; // the minimum of each col before reducing the matrix
     private final int nodeCount; // the remaining nodes at this step
     private final int removedRow; // the removed row at this step
     private final int removedCol; // the removed col at this step
@@ -18,6 +18,8 @@ public class StepMatrix
         }
         this.removedRow = removedRow;
         this.removedCol = removedCol;
+        this.rowMin = rowMin;
+        this.colMin = colMin;
         this.rowLabel = rowLabel;
         this.colLabel = colLabel;
         nodeCount = matrix.length;
