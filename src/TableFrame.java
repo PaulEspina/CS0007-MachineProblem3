@@ -100,6 +100,15 @@ public class TableFrame extends JFrame implements ActionListener{
             for(int col = 0; col < nodeCount; col++) {
                 JTextField data = new JTextField();
                 data.setPreferredSize(new Dimension(50,25));
+                data.setOpaque(true);
+                data.setBackground(new Color(50, 50, 50));
+                data.setForeground(new Color(175, 175, 175));
+                if (row == col) {
+                    data.setText("-");
+                    data.setEnabled(false);
+                    data.setFont(new Font("Arial", Font.BOLD, 20));
+                    data.setForeground(Color.RED);
+                }
                 data.addKeyListener(new KeyAdapter() {
                     public void keyPressed(KeyEvent KEvent) {
                         data.setEditable((KEvent.getKeyChar() >= '0' && KEvent.getKeyChar() <= '9') || KEvent.getKeyChar() == KeyEvent.VK_BACK_SPACE || KEvent.getKeyChar() == '-');
