@@ -1,41 +1,7 @@
 import java.util.*;
 
-//test commit
-
 public class TSPAlgorithm
 {
-    public static void main(String[] args)
-    {
-//        int[][] matrix =
-//        {
-//            {-1, 7, 6, 8, 4},
-//            {7, -1, 8, 5, 6},
-//            {6, 8, -1, 9, 7},
-//            {8, 5, 9, -1, 8},
-//            {4, 6, 7, 8, -1}
-//        };
-
-        int[][] matrix =
-        {
-                {-1, 20, 23, 27, 29, 34},
-                {21, -1, 19, 26, 31, 24},
-                {26, 28, -1, 15, 36, 26},
-                {25, 16, 25, -1, 23, 18},
-                {23, 40, 13, 31, -1, 10},
-                {27, 18, 12, 35, 16, -1}
-        };
-
-        TSPAlgorithm test = new TSPAlgorithm(matrix);
-        test.solve();
-
-        int[] solution = test.getPath();
-        for(int j : solution)
-        {
-            System.out.print(j + " ");
-        }
-        System.out.println("\nCost: " + test.getPathCost());
-    }
-
     private final int[][] adjMatrix; // the original matrix
     private final LinkedList<StepMatrix> stepMatrices; // saves the matrix at each step
     private ListIterator<StepMatrix> iterator;
