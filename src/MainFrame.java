@@ -18,7 +18,7 @@ public class MainFrame extends JFrame implements ActionListener
         this.tableFrame = tableFrame;
         setTitle("TSP Visualization");
         setSize(600, 900);
-        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
 
         // SOLVE ALGORITHM
@@ -28,6 +28,7 @@ public class MainFrame extends JFrame implements ActionListener
         // DESCRIPTION PANEL
         descriptionPanel = new JPanel();
         descriptionPanel.setPreferredSize(new Dimension(getWidth(), getHeight() / 3));
+        descriptionPanel.setBackground(new Color(50, 60, 70));
 
         // CODE SIMULATION PANEL
         codeSimPanel = new CodeSimPanel();
@@ -35,6 +36,7 @@ public class MainFrame extends JFrame implements ActionListener
 
         // BUTTONS PANEL
         buttonsPanel = new JPanel();
+        buttonsPanel.setBackground(new Color(50, 60, 70));
         buttons = new ArrayList<>();
         buttons.add(new Button("NEW"));
         buttons.add(new Button("<<"));

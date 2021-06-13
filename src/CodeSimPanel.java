@@ -237,7 +237,7 @@ public class CodeSimPanel extends JPanel
             {
                 codeLabels[currentProcessIt].get(lineIt + 1).setBackground(Color.BLACK);
             }
-            codeLabels[currentProcessIt].get(lineIt).setBackground(new Color(100, 100, 200));
+            codeLabels[currentProcessIt].get(lineIt).setBackground(new Color(100, 150, 200));
         }
     }
 

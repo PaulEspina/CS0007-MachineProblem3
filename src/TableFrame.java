@@ -43,16 +43,18 @@ public class TableFrame extends JFrame implements ActionListener{
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        gridPanel = new JPanel();
-        gridPanel.setLayout(new GridBagLayout());
+        gridPanel = new JPanel(new GridBagLayout());
+        gridPanel.setBackground(Color.BLACK);
         scrollPane = new JScrollPane(gridPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBackground(Color.BLACK);
 
         buttonsPanel = new JPanel();
+        buttonsPanel.setBackground(Color.BLACK);
         add(buttonsPanel, BorderLayout.SOUTH);
 
-        confirmButton = new Button("CONFIRM", 125, 35);
+        confirmButton = new Button("CONFIRM", 100, 25);
         confirmButton.addActionListener(this);
-        randomButton = new Button("RANDOM", 125, 35);
+        randomButton = new Button("RANDOM", 100, 25);
         randomButton.addActionListener(this);
         buttonsPanel.add(confirmButton);
         buttonsPanel.add(randomButton);
@@ -66,9 +68,12 @@ public class TableFrame extends JFrame implements ActionListener{
         char letter = 65;
         JViewport rowHeaderView = new JViewport();
         JPanel rowHeaderPanel = new JPanel(new GridBagLayout());
+        rowHeaderPanel.setBackground(Color.BLACK);
         for (int i = 0; i < nodeCount; i++) {
             JLabel label = new JLabel(String.valueOf((char) (letter + i)), SwingConstants.CENTER);
             label.setPreferredSize(new Dimension(50,25));
+            label.setBackground(Color.BLACK);
+            label.setForeground(Color.WHITE);
             gbc.gridy = i;
             gbc.gridx = 0;
             rowHeaderPanel.add(label, gbc);
@@ -79,9 +84,12 @@ public class TableFrame extends JFrame implements ActionListener{
         // col header
         JViewport colHeaderView = new JViewport();
         JPanel colHeaderPanel = new JPanel(new GridBagLayout());
+        colHeaderPanel.setBackground(Color.BLACK);
         for (int i = 0; i < nodeCount; i++) {
             JLabel label = new JLabel(String.valueOf((char) (letter + i)), SwingConstants.CENTER);
             label.setPreferredSize(new Dimension(50,25));
+            label.setBackground(Color.BLACK);
+            label.setForeground(Color.WHITE);
             gbc.gridy = 0;
             gbc.gridx = i;
             colHeaderPanel.add(label, gbc);
@@ -140,8 +148,8 @@ public class TableFrame extends JFrame implements ActionListener{
                 setSize(size);
             }
 
-            gridPanel = new JPanel();
-            gridPanel.setLayout(new GridBagLayout());
+            gridPanel = new JPanel(new GridBagLayout());
+            gridPanel.setBackground(Color.BLACK);
             scrollPane = new JScrollPane(gridPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             scrollPane.setBackground(Color.BLACK);
 
@@ -154,6 +162,7 @@ public class TableFrame extends JFrame implements ActionListener{
             char letter = 65;
             JViewport rowHeaderView = new JViewport();
             JPanel rowHeaderPanel = new JPanel(new GridBagLayout());
+            rowHeaderPanel.setBackground(Color.BLACK);
             for(int i = 0; i < matrix.length; i++)
             {
                 char charLabel = (char) (letter + i);
@@ -177,6 +186,7 @@ public class TableFrame extends JFrame implements ActionListener{
             letter = 65;
             JViewport colHeaderView = new JViewport();
             JPanel colHeaderPanel = new JPanel(new GridBagLayout());
+            colHeaderPanel.setBackground(Color.BLACK);
             for(int i = 0; i < matrix.length; i++)
             {
                 char charLabel = (char) (letter + i);
@@ -204,6 +214,9 @@ public class TableFrame extends JFrame implements ActionListener{
                     JLabel data = new JLabel(String.valueOf(matrix[row][col]), SwingConstants.CENTER);
                     data.setPreferredSize(new Dimension(50, 25));
                     data.setBorder(BorderFactory.createLineBorder(Color.black));
+                    data.setOpaque(true);
+                    data.setBackground(new Color(50, 50, 50));
+                    data.setForeground(new Color(175, 175, 175));
                     gbc.gridy = row;
                     gbc.gridx = col;
                     gridPanel.add(data, gbc);

@@ -1,7 +1,5 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class Button extends JButton
 {
@@ -34,6 +32,9 @@ public class Button extends JButton
         setFocusPainted(false);
         setFocusable(false);
         setFont(new Font("Arial", Font.BOLD, 12));
+        setBackground(new Color(50, 50, 50));
+        setBorderPainted(false);
+        setForeground(Color.WHITE);
         setHorizontalTextPosition(this.CENTER);
         setVerticalTextPosition(this.CENTER);
     }
