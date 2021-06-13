@@ -5,31 +5,27 @@ import java.awt.event.*;
 import javax.swing.*;
 
 class Input extends JPanel implements ActionListener {
-    
+
     JFrame frame = new JFrame("Travelling Salesman Problem Visualization");
-    JButton confirmButton, randomButton;
+    JButton confirmButton;
     JLabel label;
     JTextField inputTF;
-    
+
     Input() {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(450,250);
         frame.add(this);
-        
+
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         setLayout(new GridLayout(4,1));
-        
+
         confirmButton = new JButton("CONFIRM");
         confirmButton.setFocusable(false);
         confirmButton.addActionListener(this);
-        
-        randomButton = new JButton("RANDOMIZE");
-        randomButton.setFocusable(false);
-        randomButton.addActionListener(this);
-        
+
         label = new JLabel("Please enter the number of nodes");
         label.setFont(new Font("Comic Sans", Font.BOLD, 16));
-        
+
         inputTF = new JTextField();
         inputTF.setPreferredSize(new Dimension(10,10));
         inputTF.addKeyListener(new KeyAdapter() {
@@ -42,11 +38,10 @@ class Input extends JPanel implements ActionListener {
                 }
             }
         });
-        
+
         add(label);
         add(inputTF);
         add(confirmButton);
-        add(randomButton);
         frame.setVisible(true);
     }
 
@@ -58,19 +53,12 @@ class Input extends JPanel implements ActionListener {
                 if (intValue >= 2) {
                     frame.setVisible(false);
                     frame.dispose();
-                    TSP app = new TSP(intValue);
+                    TableFrame tableFrame = new TableFrame(intValue);
                 }
                 else {
                     inputTF.setText("");
                     JOptionPane.showMessageDialog(frame, "Please enter a value greater than or equal to 2", "Alert", JOptionPane.WARNING_MESSAGE);
                 }
-            }
-            else if (ae.getSource() == randomButton) {
-//                int min = 2, max = 5;
-//                int value = (int)Math.floor(Math.random()*(max-min+1)+min);
-                frame.setVisible(false);
-                frame.dispose();
-                TSP app = new TSP(5);
             }
         }
         catch (NumberFormatException NFE) {
