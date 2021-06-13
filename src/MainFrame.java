@@ -6,32 +6,34 @@ import java.util.ArrayList;
 
 public class MainFrame extends JFrame implements ActionListener
 {
-    private JPanel buttonsPanel;
-    private JPanel codeSimPanel;
-    private JPanel descriptionPanel;
-    private TableFrame tableFrame;
-    private TSPAlgorithm algorithm;
-    private ArrayList<JButton> buttons;
+    private final JPanel buttonsPanel;
+    private final CodeSimPanel codeSimPanel;
+    private final JPanel descriptionPanel;
+    private final TableFrame tableFrame;
+    private final TSPAlgorithm algorithm;
+    private final ArrayList<JButton> buttons;
 
     public MainFrame(TableFrame tableFrame) {
+        // CLASS SETUP
         this.tableFrame = tableFrame;
-        // Setup MainFrame
         setTitle("TSP Visualization");
         setSize(600, 900);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setMinimumSize(new Dimension(WIDTH, HEIGHT));
 
+        // SOLVE ALGORITHM
         algorithm = new TSPAlgorithm(tableFrame.matrixGetter());
         algorithm.solve();
 
-        // description panel
+        // DESCRIPTION PANEL
         descriptionPanel = new JPanel();
-        descriptionPanel.setPreferredSize(new Dimension(getWidth(), getHeight() / 4));
+        descriptionPanel.setPreferredSize(new Dimension(getWidth(), getHeight() / 3));
 
-        // code sim panel
-        codeSimPanel = new JPanel();
+        // CODE SIMULATION PANEL
+        codeSimPanel = new CodeSimPanel();
+        codeSimPanel.setBackground(Color.black);
 
-        // buttons panel
+        // BUTTONS PANEL
         buttonsPanel = new JPanel();
         buttons = new ArrayList<>();
         buttons.add(new Button("NEW"));
@@ -66,10 +68,12 @@ public class MainFrame extends JFrame implements ActionListener
         }
         if(e.getSource() == buttons.get(2))
         {
+            codeSimPanel.previousCodeLine();
             tableFrame.update(algorithm.prev());
         }
         if(e.getSource() == buttons.get(3))
         {
+            codeSimPanel.nextCodeLine();
             tableFrame.update(algorithm.next());
         }
         if(e.getSource() == buttons.get(4))
