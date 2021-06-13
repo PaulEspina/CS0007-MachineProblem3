@@ -4,20 +4,21 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-class Input extends JPanel implements ActionListener {
+class NodeCountFrame extends JFrame implements ActionListener {
 
-    JFrame frame = new JFrame("Travelling Salesman Problem Visualization");
     JButton confirmButton;
     JLabel label;
     JTextField inputTF;
 
-    Input() {
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(450,250);
-        frame.add(this);
+    NodeCountFrame() {
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Input Number of Nodes");
+        setSize(450,250);
+        setLocationRelativeTo(null);
 
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
-        setLayout(new GridLayout(4,1));
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(4,1));
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         confirmButton = new JButton("CONFIRM");
         confirmButton.setFocusable(false);
@@ -39,10 +40,11 @@ class Input extends JPanel implements ActionListener {
             }
         });
 
-        add(label);
-        add(inputTF);
-        add(confirmButton);
-        frame.setVisible(true);
+        panel.add(label);
+        panel.add(inputTF);
+        panel.add(confirmButton);
+        add(panel);
+        setVisible(true);
     }
 
     @Override
@@ -51,18 +53,17 @@ class Input extends JPanel implements ActionListener {
             if (ae.getSource() == confirmButton) {
                 int intValue = Integer.parseInt(inputTF.getText());
                 if (intValue >= 2) {
-                    frame.setVisible(false);
-                    frame.dispose();
+                    dispose();
                     TableFrame tableFrame = new TableFrame(intValue);
                 }
                 else {
                     inputTF.setText("");
-                    JOptionPane.showMessageDialog(frame, "Please enter a value greater than or equal to 2", "Alert", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Please enter a value greater than or equal to 2", "Alert", JOptionPane.WARNING_MESSAGE);
                 }
             }
         }
         catch (NumberFormatException NFE) {
-            JOptionPane.showMessageDialog(frame, "The field cannot be empty!", "Alert", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "The field cannot be empty!", "Alert", JOptionPane.WARNING_MESSAGE);
         }
     }
 }
