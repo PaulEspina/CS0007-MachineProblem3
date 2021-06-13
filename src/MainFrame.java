@@ -6,7 +6,6 @@ import java.util.ArrayList;
 
 public class MainFrame extends JFrame implements ActionListener
 {
-    private final JPanel buttonsPanel;
     private final CodeSimPanel codeSimPanel;
     private final JPanel descriptionPanel;
     private final TableFrame tableFrame;
@@ -35,7 +34,7 @@ public class MainFrame extends JFrame implements ActionListener
         codeSimPanel.setBackground(Color.black);
 
         // BUTTONS PANEL
-        buttonsPanel = new JPanel();
+        JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBackground(new Color(50, 60, 70));
         buttons = new ArrayList<>();
         buttons.add(new Button("NEW"));

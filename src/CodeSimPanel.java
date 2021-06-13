@@ -189,7 +189,7 @@ public class CodeSimPanel extends JPanel
             // setup lines
             gbc.weightx = 1;
             gbc.gridx = 1;
-            JLabel line = (JLabel)codeLabels[currentProcessIt].get(i);
+            JLabel line = codeLabels[currentProcessIt].get(i);
             line.setPreferredSize(new Dimension(getWidth() - 100,20));
             line.setForeground(new Color(200, 200, 200));
             contentPanel.add(line, gbc);

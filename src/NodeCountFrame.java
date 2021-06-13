@@ -31,12 +31,7 @@ class NodeCountFrame extends JFrame implements ActionListener {
         inputTF.setPreferredSize(new Dimension(150,25));
         inputTF.addKeyListener(new KeyAdapter() {
             public void keyPressed(KeyEvent KEvent) {
-                if ((KEvent.getKeyChar() >= '0' && KEvent.getKeyChar() <= '9') || KEvent.getKeyChar() == KeyEvent.VK_BACK_SPACE) {
-                    inputTF.setEditable(true);
-                }
-                else {
-                    inputTF.setEditable(false);
-                }
+                inputTF.setEditable((KEvent.getKeyChar() >= '0' && KEvent.getKeyChar() <= '9') || KEvent.getKeyChar() == KeyEvent.VK_BACK_SPACE);
             }
         });
 
@@ -67,7 +62,7 @@ class NodeCountFrame extends JFrame implements ActionListener {
             int intValue = Integer.parseInt(inputTF.getText());
             if (intValue >= 2) {
                 dispose();
-                TableFrame tableFrame = new TableFrame(intValue);
+                new TableFrame(intValue);
             }
             else {
                 inputTF.setText("");

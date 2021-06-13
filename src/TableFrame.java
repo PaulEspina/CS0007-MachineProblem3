@@ -9,13 +9,11 @@ import javax.swing.*;
 public class TableFrame extends JFrame implements ActionListener{
     private int width, height;
     private JPanel gridPanel;
-    private JPanel buttonsPanel;
-    private JPanel colHeader = new JPanel();
-    private JButton confirmButton, randomButton;
+    private final JButton confirmButton, randomButton;
     private JScrollPane scrollPane;
-    private int nodeCount;
-    private int[][] parsedData;
-    private JTextField[][] matrixTextField;
+    private final int nodeCount;
+    private final int[][] parsedData;
+    private final JTextField[][] matrixTextField;
 
     TableFrame(int nodeCount) {
         this.nodeCount = nodeCount;
@@ -48,7 +46,7 @@ public class TableFrame extends JFrame implements ActionListener{
         scrollPane = new JScrollPane(gridPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setBackground(Color.BLACK);
 
-        buttonsPanel = new JPanel();
+        JPanel buttonsPanel = new JPanel();
         buttonsPanel.setBackground(Color.BLACK);
         add(buttonsPanel, BorderLayout.SOUTH);
 
@@ -98,19 +96,13 @@ public class TableFrame extends JFrame implements ActionListener{
         scrollPane.setColumnHeader(colHeaderView);
 
         // grid
-        int A = 65;
         for(int row = 0; row < nodeCount; row++) {
             for(int col = 0; col < nodeCount; col++) {
                 JTextField data = new JTextField();
                 data.setPreferredSize(new Dimension(50,25));
                 data.addKeyListener(new KeyAdapter() {
                     public void keyPressed(KeyEvent KEvent) {
-                        if ((KEvent.getKeyChar() >= '0' && KEvent.getKeyChar() <= '9') || KEvent.getKeyChar() == KeyEvent.VK_BACK_SPACE || KEvent.getKeyChar() == '-') {
-                            data.setEditable(true);
-                        }
-                        else {
-                            data.setEditable(false);
-                        }
+                        data.setEditable((KEvent.getKeyChar() >= '0' && KEvent.getKeyChar() <= '9') || KEvent.getKeyChar() == KeyEvent.VK_BACK_SPACE || KEvent.getKeyChar() == '-');
                     }
                 });
                 gbc.gridy = row;
@@ -239,16 +231,13 @@ public class TableFrame extends JFrame implements ActionListener{
                     for (int col = 0; col < nodeCount; col++) {
                         if (matrixTextField[row][col].getText().contains("-") || matrixTextField[row][col].getText().equals("0")) {
                             parsedData[row][col] = -1;
-//                            matrixTextField[row][col].setText("-1");
                         }
                         parsedData[row][col] = Integer.parseInt(matrixTextField[row][col].getText());
-//                        matrixTextField[row][col].setEnabled(false);
-//                        System.out.println("ParsedData[" + row + "][" + col + "] = " + parsedData[row][col]);
                     }
                 }
                 StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null);
                 update(step);
-                MainFrame tsp = new MainFrame(this);
+                new MainFrame(this);
             }
             else if (ae.getSource() == randomButton) {
                 for (int row = 0; row < nodeCount; row++) {
@@ -263,7 +252,7 @@ public class TableFrame extends JFrame implements ActionListener{
                 }
                 StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null);
                 update(step);
-                MainFrame tsp = new MainFrame(this);
+                new MainFrame(this);
             }
 
         }

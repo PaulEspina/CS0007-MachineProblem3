@@ -36,11 +36,11 @@ public class TSPAlgorithm
         System.out.println("\nCost: " + test.getPathCost());
     }
 
-    private int[][] adjMatrix; // the original matrix
-    private LinkedList<StepMatrix> stepMatrices; // saves the matrix at each step
+    private final int[][] adjMatrix; // the original matrix
+    private final LinkedList<StepMatrix> stepMatrices; // saves the matrix at each step
     private ListIterator<StepMatrix> iterator;
     private StepMatrix current;
-    private int[] path; // the solution
+    private final int[] path; // the solution
     private int pathCost;
 
     public TSPAlgorithm(int[][] adjMatrix)
