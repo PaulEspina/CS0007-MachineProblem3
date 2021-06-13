@@ -9,7 +9,7 @@ import javax.swing.*;
 public class TableFrame extends JFrame implements ActionListener{
     private int width, height;
     private JPanel gridPanel;
-    private final JButton confirmButton, randomButton;
+    private final JButton confirmButton, randomButton, cancelButton;
     private JScrollPane scrollPane;
     private final int nodeCount;
     private final int[][] parsedData;
@@ -50,12 +50,18 @@ public class TableFrame extends JFrame implements ActionListener{
         buttonsPanel.setBackground(Color.BLACK);
         add(buttonsPanel, BorderLayout.SOUTH);
 
-        confirmButton = new Button("CONFIRM", 100, 25);
-        confirmButton.addActionListener(this);
+        cancelButton = new Button("CANCEL", 100, 25);
+        cancelButton.addActionListener(this);
+
         randomButton = new Button("RANDOM", 100, 25);
         randomButton.addActionListener(this);
-        buttonsPanel.add(confirmButton);
+
+        confirmButton = new Button("CONFIRM", 100, 25);
+        confirmButton.addActionListener(this);
+
+        buttonsPanel.add(cancelButton);
         buttonsPanel.add(randomButton);
+        buttonsPanel.add(confirmButton);
 
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.weighty = 1;
@@ -233,29 +239,21 @@ public class TableFrame extends JFrame implements ActionListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent ae) {
-        try {
-            if (ae.getSource() == confirmButton) {
-                for (int row = 0; row < nodeCount; row++) {
-                    for (int col = 0; col < nodeCount; col++) {
-                        if (matrixTextField[row][col].getText().contains("-") || matrixTextField[row][col].getText().equals("0")) {
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == confirmButton) {
+            try
+            {
+                for(int row = 0; row < nodeCount; row++)
+                {
+                    for(int col = 0; col < nodeCount; col++)
+                    {
+                        if(matrixTextField[row][col].getText().contains("-") || matrixTextField[row][col].getText().equals("0"))
+                        {
                             parsedData[row][col] = -1;
                         }
-                        parsedData[row][col] = Integer.parseInt(matrixTextField[row][col].getText());
-                    }
-                }
-                StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null);
-                update(step);
-                new MainFrame(this);
-            }
-            else if (ae.getSource() == randomButton) {
-                for (int row = 0; row < nodeCount; row++) {
-                    for (int col = 0; col < nodeCount; col++) {
-                        if (row == col) {
-                            parsedData[row][col] = -1;
-                        }
-                        else {
-                            parsedData[row][col] = new Random().nextInt(99);
+                        else
+                        {
+                            parsedData[row][col] = Integer.parseInt(matrixTextField[row][col].getText());
                         }
                     }
                 }
@@ -263,10 +261,30 @@ public class TableFrame extends JFrame implements ActionListener{
                 update(step);
                 new MainFrame(this);
             }
-
+            catch(NumberFormatException ex)
+            {
+                JOptionPane.showMessageDialog(this, "Please fill up all the textfield!", "Alert", JOptionPane.ERROR_MESSAGE);
+            }
         }
-        catch (NumberFormatException NFE) {
-            JOptionPane.showMessageDialog(this, "Please fill up all the textfield!", "Alert", JOptionPane.ERROR_MESSAGE);
+        if (e.getSource() == randomButton) {
+            for (int row = 0; row < nodeCount; row++) {
+                for (int col = 0; col < nodeCount; col++) {
+                    if (row == col) {
+                        parsedData[row][col] = -1;
+                    }
+                    else {
+                        parsedData[row][col] = new Random().nextInt(99);
+                    }
+                }
+            }
+            StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null);
+            update(step);
+            new MainFrame(this);
+        }
+        if(e.getSource() == cancelButton)
+        {
+            dispose();
+            new NodeCountFrame();
         }
     }
 
