@@ -1,13 +1,13 @@
 public class StepMatrix
 {
-    private int[][] matrix; // the reduced matrix at this step
-    private int[] rowLabel;
-    private int[] colLabel;
+    private final int[][] matrix; // the reduced matrix at this step
+    private final int[] rowLabel;
+    private final int[] colLabel;
     private int[] rowMin; // the minimum of each row before reducing the matrix
     private int[] colMin; // the minimum of each col before reducing the matrix
-    private int nodeCount; // the remaining nodes at this step
-    private int removedRow; // the removed row at this step
-    private int removedCol; // the removed col at this step
+    private final int nodeCount; // the remaining nodes at this step
+    private final int removedRow; // the removed row at this step
+    private final int removedCol; // the removed col at this step
 
     public StepMatrix(int[][] matrix, int removedRow, int removedCol, int[]rowMin, int[] colMin, int[]rowLabel, int[]colLabel)
     {
