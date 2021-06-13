@@ -18,8 +18,8 @@ public class MainFrame extends JFrame implements ActionListener
         this.tableFrame = tableFrame;
         setTitle("TSP Visualization");
         setSize(600, 900);
+        setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setMinimumSize(new Dimension(WIDTH, HEIGHT));
 
         // SOLVE ALGORITHM
         algorithm = new TSPAlgorithm(tableFrame.matrixGetter());
