@@ -59,14 +59,19 @@ class NodeCountFrame extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirmButton) {
-            int intValue = Integer.parseInt(inputTF.getText());
-            if (intValue >= 2) {
-                dispose();
-                new TableFrame(intValue);
-            }
-            else {
-                inputTF.setText("");
-                JOptionPane.showMessageDialog(null, "Please enter a value greater than or equal to 2", "Alert", JOptionPane.WARNING_MESSAGE);
+            if(!inputTF.getText().isEmpty())
+            {
+                int intValue = Integer.parseInt(inputTF.getText());
+                if(intValue >= 2)
+                {
+                    dispose();
+                    new TableFrame(intValue);
+                }
+                else
+                {
+                    inputTF.setText("");
+                    JOptionPane.showMessageDialog(null, "Please enter a value greater than or equal to 2", "Alert", JOptionPane.WARNING_MESSAGE);
+                }
             }
         }
         if(e.getSource() == closeButton)
