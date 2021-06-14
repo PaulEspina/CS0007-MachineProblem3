@@ -13,7 +13,7 @@ public class TSPAlgorithm
     {
         this.adjMatrix = adjMatrix;
         stepMatrices = new LinkedList<>();
-        stepMatrices.add(new StepMatrix(adjMatrix, -1, -1, null, null, null, null));
+        stepMatrices.add(new StepMatrix(adjMatrix, -1, -1, null, null, null, null, null));
         path = new int[adjMatrix.length + 1];
         pathCost = 0;
     }
@@ -116,16 +116,12 @@ public class TSPAlgorithm
             }
 
             // find highest penalty
-            int highestPenalty = 0;
-            int highPenaltyX = 0;
-            int highPenaltyY = 0;
+            int[] highest = new int[] {0, 0, 0};
             for(int[] penalty : penalties)
             {
-                if(penalty[2] > highestPenalty)
+                if(penalty[2] > highest[2])
                 {
-                    highPenaltyY = penalty[0];
-                    highPenaltyX = penalty[1];
-                    highestPenalty = penalty[2];
+                    highest = penalty;
                 }
             }
 
@@ -134,18 +130,18 @@ public class TSPAlgorithm
             int counter = 0;
             for(int y = 0; y < currentMatrixNodeCount; y++)
             {
-                if(highPenaltyY == y)
+                if(highest[0] == y)
                 {
                     continue;
                 }
                 for(int x = 0; x < currentMatrixNodeCount; x++)
                 {
-                    if(highPenaltyX == x)
+                    if(highest[1] == x)
                     {
                         continue;
                     }
 
-                    if(cols.get(highPenaltyX).equals(rows.get(y)) && rows.get(highPenaltyY).equals(cols.get(x)))
+                    if(cols.get(highest[1]).equals(rows.get(y)) && rows.get(highest[0]).equals(cols.get(x)))
                     {
                         newMatrix[counter / newMatrix.length][counter % newMatrix.length] = -1;
                     }
@@ -158,11 +154,11 @@ public class TSPAlgorithm
             }
 
             currentMatrix = newMatrix;
-            int removedCol = cols.get(highPenaltyX);
-            int removedRow = rows.get(highPenaltyY);
-            cols.remove(highPenaltyX);
-            rows.remove(highPenaltyY);
-            stepMatrices.add(new StepMatrix(newMatrix, removedRow, removedCol, allRowMin, allColMin, rows.stream().mapToInt(Integer::intValue).toArray(), cols.stream().mapToInt(Integer::intValue).toArray()));
+            int removedCol = cols.get(highest[1]);
+            int removedRow = rows.get(highest[0]);
+            cols.remove(highest[1]);
+            rows.remove(highest[0]);
+            stepMatrices.add(new StepMatrix(newMatrix, removedRow, removedCol, allRowMin, allColMin, rows.stream().mapToInt(Integer::intValue).toArray(), cols.stream().mapToInt(Integer::intValue).toArray(), highest));
         }
 
         // create path
@@ -198,6 +194,7 @@ public class TSPAlgorithm
         // create iterator
         iterator = stepMatrices.listIterator();
         current = iterator.next();
+        prev();
     }
 
     public StepMatrix begin()
@@ -243,13 +240,23 @@ public class TSPAlgorithm
         if(iterator.hasPrevious())
         {
             StepMatrix step = iterator.previous();
-            if(step == current)
+            if(step == current && iterator.hasPrevious())
             {
                 step = iterator.previous();
             }
             current = step;
         }
         return current;
+    }
+
+    public boolean hasNext()
+    {
+        return iterator.hasNext();
+    }
+
+    public boolean hasPrev()
+    {
+        return iterator.hasPrevious();
     }
 
     public StepMatrix current()

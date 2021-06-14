@@ -257,7 +257,7 @@ public class TableFrame extends JFrame implements ActionListener{
                         }
                     }
                 }
-                StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null);
+                StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null, null);
                 update(step);
                 new MainFrame(this);
             }
@@ -277,7 +277,7 @@ public class TableFrame extends JFrame implements ActionListener{
                     }
                 }
             }
-            StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null);
+            StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null, null);
             update(step);
             new MainFrame(this);
         }

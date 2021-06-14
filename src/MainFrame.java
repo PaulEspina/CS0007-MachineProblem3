@@ -1,3 +1,5 @@
+import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -11,6 +13,7 @@ public class MainFrame extends JFrame implements ActionListener
     private final TableFrame tableFrame;
     private final TSPAlgorithm algorithm;
     private final ArrayList<JButton> buttons;
+    private int it;
 
     public MainFrame(TableFrame tableFrame) {
         // CLASS SETUP
@@ -65,20 +68,53 @@ public class MainFrame extends JFrame implements ActionListener
         }
         if(e.getSource() == buttons.get(1))
         {
+            it = 0;
+            codeSimPanel.changePage(0);
             tableFrame.update(algorithm.begin());
         }
         if(e.getSource() == buttons.get(2))
         {
-            codeSimPanel.previousCodeLine();
-            tableFrame.update(algorithm.prev());
+            if(it > 0 && algorithm.hasNext())
+            {
+                codeSimPanel.changePage(--it);
+            }
+            else if(it == 0)
+            {
+                boolean flag = algorithm.hasPrev();
+                StepMatrix matrix = algorithm.prev();
+                tableFrame.update(matrix);
+                if(flag)
+                {
+                    it = 3;
+                    codeSimPanel.changePage(it);
+                }
+            }
         }
         if(e.getSource() == buttons.get(3))
         {
-            codeSimPanel.nextCodeLine();
-            tableFrame.update(algorithm.next());
+            if(it < 3 && algorithm.hasNext())
+            {
+                codeSimPanel.changePage(++it);
+            }
+            else if(it == 3)
+            {
+                it = 0;
+                StepMatrix matrix = algorithm.next();
+                tableFrame.update(matrix);
+                if(algorithm.hasNext())
+                {
+                    codeSimPanel.changePage(it);
+                }
+                else
+                {
+                    codeSimPanel.clearCode();
+                }
+            }
         }
         if(e.getSource() == buttons.get(4))
         {
+            it = 0;
+            codeSimPanel.clearCode();
             tableFrame.update(algorithm.end());
         }
     }

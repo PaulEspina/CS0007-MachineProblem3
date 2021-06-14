@@ -5,11 +5,12 @@ public class StepMatrix
     private final int[] colLabel;
     private final int[] rowMin; // the minimum of each row before reducing the matrix
     private final int[] colMin; // the minimum of each col before reducing the matrix
+    private final int[] highestPenalty;
     private final int nodeCount; // the remaining nodes at this step
     private final int removedRow; // the removed row at this step
     private final int removedCol; // the removed col at this step
 
-    public StepMatrix(int[][] matrix, int removedRow, int removedCol, int[]rowMin, int[] colMin, int[]rowLabel, int[]colLabel)
+    public StepMatrix(int[][] matrix, int removedRow, int removedCol, int[]rowMin, int[] colMin, int[]rowLabel, int[]colLabel, int[] highestPenalty)
     {
         this.matrix = new int[matrix.length][matrix.length];
         for(int i = 0; i < matrix.length; i++)
@@ -22,6 +23,7 @@ public class StepMatrix
         this.colMin = colMin;
         this.rowLabel = rowLabel;
         this.colLabel = colLabel;
+        this.highestPenalty = highestPenalty;
         nodeCount = matrix.length;
     }
 
@@ -65,5 +67,10 @@ public class StepMatrix
     public int[] getColLabel()
     {
         return colLabel;
+    }
+
+    public int[] getHighestPenalty()
+    {
+        return highestPenalty;
     }
 }
