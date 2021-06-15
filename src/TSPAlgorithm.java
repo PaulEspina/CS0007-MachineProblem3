@@ -3,9 +3,8 @@ import java.util.*;
 public class TSPAlgorithm
 {
     private final int[][] adjMatrix; // the original matrix
+    private final StepMatrix initialStep;
     private final LinkedList<StepMatrix> stepMatrices; // saves the matrix at each step
-    private ListIterator<StepMatrix> iterator;
-    private StepMatrix current;
     private final int[] path; // the solution
     private int pathCost;
 
@@ -13,7 +12,7 @@ public class TSPAlgorithm
     {
         this.adjMatrix = adjMatrix;
         stepMatrices = new LinkedList<>();
-        stepMatrices.add(new StepMatrix(adjMatrix, -1, -1, null, null, null, null, null));
+        initialStep = new StepMatrix(adjMatrix);
         path = new int[adjMatrix.length + 1];
         pathCost = 0;
     }
@@ -116,7 +115,7 @@ public class TSPAlgorithm
             }
 
             // find highest penalty
-            int[] highest = new int[] {0, 0, 0};
+            int[] highest = new int[] {0, 0, Integer.MIN_VALUE};
             for(int[] penalty : penalties)
             {
                 if(penalty[2] > highest[2])
@@ -153,17 +152,22 @@ public class TSPAlgorithm
                 }
             }
 
+            int[] penaltyValues = new int[penalties.size()];
+            for(int i = 0; i < penalties.size(); i++)
+            {
+                penaltyValues[i] = penalties.get(i)[2];
+            }
             currentMatrix = newMatrix;
             int removedCol = cols.get(highest[1]);
             int removedRow = rows.get(highest[0]);
             cols.remove(highest[1]);
             rows.remove(highest[0]);
-            stepMatrices.add(new StepMatrix(newMatrix, removedRow, removedCol, allRowMin, allColMin, rows.stream().mapToInt(Integer::intValue).toArray(), cols.stream().mapToInt(Integer::intValue).toArray(), highest));
+            stepMatrices.add(new StepMatrix(newMatrix, removedRow, removedCol, allRowMin, allColMin, rows.stream().mapToInt(Integer::intValue).toArray(), cols.stream().mapToInt(Integer::intValue).toArray(), penaltyValues, highest));
         }
 
         // create path
         int[][] coords = new int[stepMatrices.size()][2];
-        for(int i = 1; i < stepMatrices.size(); i++)
+        for(int i = 0; i < stepMatrices.size(); i++)
         {
             coords[i][0] = stepMatrices.get(i).getRemovedRow();
             coords[i][1] = stepMatrices.get(i).getRemovedCol();
@@ -190,78 +194,16 @@ public class TSPAlgorithm
         {
             pathCost += adjMatrix[coord[0]][coord[1]];
         }
-
-        // create iterator
-        iterator = stepMatrices.listIterator();
-        current = iterator.next();
-        prev();
     }
 
-    public StepMatrix begin()
+    public StepMatrix getInitialStep()
     {
-        if(!stepMatrices.isEmpty())
-        {
-            while(iterator.hasPrevious())
-            {
-                current = iterator.previous();
-            }
-        }
-        return current;
+        return initialStep;
     }
 
-    public StepMatrix end()
+    public StepMatrix getStepMatrix(int i)
     {
-        if(!stepMatrices.isEmpty())
-        {
-            while(iterator.hasNext())
-            {
-                current = iterator.next();
-            }
-        }
-        return current;
-    }
-
-    public StepMatrix next()
-    {
-        if(iterator.hasNext())
-        {
-            StepMatrix step = iterator.next();
-            if(step == current)
-            {
-                step = iterator.next();
-            }
-            current = step;
-        }
-        return current;
-    }
-
-    public StepMatrix prev()
-    {
-        if(iterator.hasPrevious())
-        {
-            StepMatrix step = iterator.previous();
-            if(step == current && iterator.hasPrevious())
-            {
-                step = iterator.previous();
-            }
-            current = step;
-        }
-        return current;
-    }
-
-    public boolean hasNext()
-    {
-        return iterator.hasNext();
-    }
-
-    public boolean hasPrev()
-    {
-        return iterator.hasPrevious();
-    }
-
-    public StepMatrix current()
-    {
-        return current;
+        return stepMatrices.get(i);
     }
 
     // Getters
