@@ -36,8 +36,8 @@ public class MainFrame extends JFrame implements ActionListener
 
         // FRAME SETUP
         setTitle("TSP Visualization");
-        setSize(600, 900);
-        setResizable(false);
+        setSize(600, 700);
+        setMinimumSize(new Dimension(getWidth(), getHeight()));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         // SOLVE ALGORITHM
@@ -46,7 +46,7 @@ public class MainFrame extends JFrame implements ActionListener
 
         // DESCRIPTION PANEL
         JPanel descriptionPanel = new JPanel(new GridLayout(1, 2));
-        descriptionPanel.setPreferredSize(new Dimension(getWidth(), getHeight() / 3));
+        descriptionPanel.setPreferredSize(new Dimension(getWidth(), getHeight() / 4));
 
         // Left Description Panel
         leftDescPanel = new JPanel();
