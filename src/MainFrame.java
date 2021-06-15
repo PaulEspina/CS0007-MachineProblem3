@@ -1,5 +1,3 @@
-import com.sun.org.apache.xerces.internal.impl.xpath.XPath;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -13,19 +11,10 @@ public class MainFrame extends JFrame implements ActionListener
     private final TableFrame tableFrame;
     private final TSPAlgorithm algorithm;
     private final ArrayList<JButton> buttons;
-    private int[][] origMatrix;
     private int it;
+    private int methodIt;
 
     // DESCRIPITON PANEL
-    // Values
-    private int methodIt;
-    private String rowMins;
-    private String colMins;
-    private int highestPenalty;
-    private char rowToRemove;
-    private char colToRemove;
-    private String path;
-    private int cost;
     // Labels
     JPanel leftDescPanel;
     JLabel iterationLabel;
