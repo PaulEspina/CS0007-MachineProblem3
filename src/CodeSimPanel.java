@@ -5,7 +5,6 @@ import java.util.ArrayList;
 public class CodeSimPanel extends JPanel
 {
     private final JPanel contentPanel;
-    private final JScrollPane scrollPane;
     private final ArrayList<JLabel>[] codePanels;
     private int currentProcessIt;
 
@@ -106,8 +105,6 @@ public class CodeSimPanel extends JPanel
         contentPanel = new JPanel();
         contentPanel.setLayout(new BoxLayout(contentPanel, BoxLayout.Y_AXIS));
         contentPanel.setBackground(Color.BLACK);
-        scrollPane = new JScrollPane(contentPanel);
-        scrollPane.setBackground(new Color(50, 50, 50));
         updateCode();
     }
 
@@ -122,7 +119,7 @@ public class CodeSimPanel extends JPanel
     private void updateCode()
     {
         clearCode();
-        add(scrollPane);
+        add(contentPanel, BorderLayout.CENTER);
 
         boolean endFlag = false;
 
@@ -158,7 +155,6 @@ public class CodeSimPanel extends JPanel
         if(!endFlag)
         {
             // SETUP ROW HEADER VIEW
-            JViewport rowHeaderView = new JViewport();
             JPanel lineNumberPanel = new JPanel();
             lineNumberPanel.setLayout(new BoxLayout(lineNumberPanel, BoxLayout.Y_AXIS));
             lineNumberPanel.setPreferredSize(new Dimension(25, getHeight() - 20));
@@ -178,8 +174,30 @@ public class CodeSimPanel extends JPanel
                 line.setForeground(new Color(200, 200, 200));
                 contentPanel.add(line);
             }
-            rowHeaderView.add(lineNumberPanel);
-            scrollPane.setRowHeader(rowHeaderView);
+            add(lineNumberPanel, BorderLayout.WEST);
+
+//            JViewport rowHeaderView = new JViewport();
+//            JPanel lineNumberPanel = new JPanel();
+//            lineNumberPanel.setLayout(new BoxLayout(lineNumberPanel, BoxLayout.Y_AXIS));
+//            lineNumberPanel.setPreferredSize(new Dimension(25, getHeight() - 20));
+//            lineNumberPanel.setBackground(new Color(50, 50, 50));
+//            ArrayList<JLabel> codes = codePanels[currentProcessIt];
+//            for(int i = 0; i < codes.size(); i++)
+//            {
+//                // line number
+//                JLabel label = new JLabel(String.valueOf(i + 1), SwingConstants.RIGHT);
+//                label.setPreferredSize(new Dimension(15, 20));
+//                label.setForeground(Color.GRAY);
+//                lineNumberPanel.add(label);
+//
+//                // setup lines
+//                JLabel line = codes.get(i);
+//                line.setPreferredSize(new Dimension(getWidth() - 100, 20));
+//                line.setForeground(new Color(200, 200, 200));
+//                contentPanel.add(line);
+//            }
+//            rowHeaderView.add(lineNumberPanel);
+//            scrollPane.setRowHeader(rowHeaderView);
         }
     }
 
