@@ -137,104 +137,97 @@ public class TableFrame extends JFrame implements ActionListener{
         getContentPane().repaint();
         getContentPane().removeAll();
 
-        if(matrix.length > 0)
+        width = ((matrix.length + 1) * 50) + 50;
+        height = ((matrix.length + 1) * 25) + 87;
+        setSize(width, height);
+        if(width > 1200)
         {
-            width = ((matrix.length + 1) * 50) + 50;
-            height = ((matrix.length + 1) * 25) + 87;
-            setSize(width, height);
-            if(width > 1200)
-            {
-                Dimension size = getSize();
-                size.width = 1200 + 25;
-                setSize(size);
-            }
-            if(height > 800)
-            {
-                Dimension size = getSize();
-                size.height = 800 + 75;
-                setSize(size);
-            }
-
-            gridPanel = new JPanel(new GridBagLayout());
-            gridPanel.setBackground(Color.BLACK);
-            scrollPane = new JScrollPane(gridPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            scrollPane.setBackground(Color.BLACK);
-
-            GridBagConstraints gbc = new GridBagConstraints();
-            gbc.weighty = 1;
-            gbc.weightx = 1;
-            gbc.fill = GridBagConstraints.BOTH;
-
-            // row header
-            char letter = 65;
-            JViewport rowHeaderView = new JViewport();
-            JPanel rowHeaderPanel = new JPanel(new GridBagLayout());
-            rowHeaderPanel.setBackground(Color.BLACK);
-            for(int i = 0; i < matrix.length; i++)
-            {
-                char charLabel = (char) (letter + i);
-                if(stepMatrix.getColLabel() != null)
-                {
-                    charLabel = (char) (letter + stepMatrix.getRowLabel()[i]);
-                }
-                JLabel label = new JLabel(String.valueOf(charLabel), SwingConstants.CENTER);
-                label.setOpaque(true);
-                label.setBackground(Color.BLACK);
-                label.setForeground(Color.WHITE);
-                label.setPreferredSize(new Dimension(50, 25));
-                gbc.gridy = i;
-                gbc.gridx = 0;
-                rowHeaderPanel.add(label, gbc);
-            }
-            rowHeaderView.add(rowHeaderPanel);
-            scrollPane.setRowHeader(rowHeaderView);
-
-            // col header
-            letter = 65;
-            JViewport colHeaderView = new JViewport();
-            JPanel colHeaderPanel = new JPanel(new GridBagLayout());
-            colHeaderPanel.setBackground(Color.BLACK);
-            for(int i = 0; i < matrix.length; i++)
-            {
-                char charLabel = (char) (letter + i);
-                if(stepMatrix.getColLabel() != null)
-                {
-                    charLabel = (char) (letter + stepMatrix.getRowLabel()[i]);
-                }
-                JLabel label = new JLabel(String.valueOf(charLabel), SwingConstants.CENTER);
-                label.setOpaque(true);
-                label.setBackground(Color.BLACK);
-                label.setForeground(Color.WHITE);
-                label.setPreferredSize(new Dimension(50, 25));
-                gbc.gridy = 0;
-                gbc.gridx = i;
-                colHeaderPanel.add(label, gbc);
-            }
-            colHeaderView.add(colHeaderPanel);
-            scrollPane.setColumnHeader(colHeaderView);
-
-            // grid
-            for(int row = 0; row < matrix.length; row++)
-            {
-                for(int col = 0; col < matrix.length; col++)
-                {
-                    JLabel data = new JLabel(String.valueOf(matrix[row][col]), SwingConstants.CENTER);
-                    data.setPreferredSize(new Dimension(50, 25));
-                    data.setBorder(BorderFactory.createLineBorder(Color.black));
-                    data.setOpaque(true);
-                    data.setBackground(new Color(50, 50, 50));
-                    data.setForeground(new Color(175, 175, 175));
-                    gbc.gridy = row;
-                    gbc.gridx = col;
-                    gridPanel.add(data, gbc);
-                }
-            }
-            add(scrollPane);
+            Dimension size = getSize();
+            size.width = 1200 + 25;
+            setSize(size);
         }
-        else
+        if(height > 800)
         {
-            add(new JLabel("DONE"));
+            Dimension size = getSize();
+            size.height = 800 + 75;
+            setSize(size);
         }
+
+        gridPanel = new JPanel(new GridBagLayout());
+        gridPanel.setBackground(Color.BLACK);
+        scrollPane = new JScrollPane(gridPanel, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setBackground(Color.BLACK);
+
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.weighty = 1;
+        gbc.weightx = 1;
+        gbc.fill = GridBagConstraints.BOTH;
+
+        // row header
+        char letter = 65;
+        JViewport rowHeaderView = new JViewport();
+        JPanel rowHeaderPanel = new JPanel(new GridBagLayout());
+        rowHeaderPanel.setBackground(Color.BLACK);
+        for(int i = 0; i < matrix.length; i++)
+        {
+            char charLabel = (char) (letter + i);
+            if(stepMatrix.getColLabel() != null)
+            {
+                charLabel = (char) (letter + stepMatrix.getRowLabel()[i]);
+            }
+            JLabel label = new JLabel(String.valueOf(charLabel), SwingConstants.CENTER);
+            label.setOpaque(true);
+            label.setBackground(Color.BLACK);
+            label.setForeground(Color.WHITE);
+            label.setPreferredSize(new Dimension(50, 25));
+            gbc.gridy = i;
+            gbc.gridx = 0;
+            rowHeaderPanel.add(label, gbc);
+        }
+        rowHeaderView.add(rowHeaderPanel);
+        scrollPane.setRowHeader(rowHeaderView);
+
+        // col header
+        letter = 65;
+        JViewport colHeaderView = new JViewport();
+        JPanel colHeaderPanel = new JPanel(new GridBagLayout());
+        colHeaderPanel.setBackground(Color.BLACK);
+        for(int i = 0; i < matrix.length; i++)
+        {
+            char charLabel = (char) (letter + i);
+            if(stepMatrix.getColLabel() != null)
+            {
+                charLabel = (char) (letter + stepMatrix.getColLabel()[i]);
+            }
+            JLabel label = new JLabel(String.valueOf(charLabel), SwingConstants.CENTER);
+            label.setOpaque(true);
+            label.setBackground(Color.BLACK);
+            label.setForeground(Color.WHITE);
+            label.setPreferredSize(new Dimension(50, 25));
+            gbc.gridy = 0;
+            gbc.gridx = i;
+            colHeaderPanel.add(label, gbc);
+        }
+        colHeaderView.add(colHeaderPanel);
+        scrollPane.setColumnHeader(colHeaderView);
+
+        // grid
+        for(int row = 0; row < matrix.length; row++)
+        {
+            for(int col = 0; col < matrix.length; col++)
+            {
+                JLabel data = new JLabel(String.valueOf(matrix[row][col]), SwingConstants.CENTER);
+                data.setPreferredSize(new Dimension(50, 25));
+                data.setBorder(BorderFactory.createLineBorder(Color.black));
+                data.setOpaque(true);
+                data.setBackground(new Color(50, 50, 50));
+                data.setForeground(new Color(175, 175, 175));
+                gbc.gridy = row;
+                gbc.gridx = col;
+                gridPanel.add(data, gbc);
+            }
+        }
+        add(scrollPane);
         setVisible(true);
     }
 
@@ -257,7 +250,7 @@ public class TableFrame extends JFrame implements ActionListener{
                         }
                     }
                 }
-                StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null, null);
+                StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null, null, null);
                 update(step);
                 new MainFrame(this);
             }
@@ -277,7 +270,7 @@ public class TableFrame extends JFrame implements ActionListener{
                     }
                 }
             }
-            StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null, null);
+            StepMatrix step = new StepMatrix(parsedData, 0, 0, null, null, null, null, null, null);
             update(step);
             new MainFrame(this);
         }
