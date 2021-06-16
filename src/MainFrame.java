@@ -224,7 +224,7 @@ public class MainFrame extends JFrame implements ActionListener
                 it = 0;
                 tableFrame.update(algorithm.getInitialStep());
                 codeSimPanel.clearCode();
-                pathLabel.setText("Path: " + Arrays.toString(algorithm.getPath()));
+                pathLabel.setText("Path: " + convertPath(algorithm.getPath()));
                 costLabel.setText("Cost: " + algorithm.getPathCost());
                 methodIt++;
             }
@@ -243,8 +243,18 @@ public class MainFrame extends JFrame implements ActionListener
             highesPenaltyLabel.setText("Highest Penalty: " + matrix.getHighestPenalty()[2]);
             rowRemoveLabel.setText("Row to Remove: " + (char) (65 + matrix.getRemovedRow()));
             colRemoveLabel.setText("Col to Remove: " + (char) (65 + matrix.getRemovedCol()));
-            pathLabel.setText("Path: " + Arrays.toString(algorithm.getPath()));
+            pathLabel.setText("Path: " + convertPath(algorithm.getPath()));
             costLabel.setText("Cost: " + algorithm.getPathCost());
         }
+    }
+
+    private String convertPath(int[] path)
+    {
+        char[] charPath = new char[path.length];
+        for(int i = 0; i < path.length; i++)
+        {
+            charPath[i] = (char) (path[i] + 65);
+        }
+        return Arrays.toString(charPath);
     }
 }
