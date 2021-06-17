@@ -117,7 +117,7 @@ public class TableFrame extends JFrame implements ActionListener{
                 }
                 data.addKeyListener(new KeyAdapter() {
                     public void keyPressed(KeyEvent KEvent) {
-                        data.setEditable((KEvent.getKeyChar() >= '0' && KEvent.getKeyChar() <= '9') || KEvent.getKeyChar() == KeyEvent.VK_BACK_SPACE || KEvent.getKeyChar() == '-');
+                        data.setEditable((KEvent.getKeyChar() >= '0' && KEvent.getKeyChar() <= '9') || KEvent.getKeyChar() == KeyEvent.VK_BACK_SPACE);
                     }
                 });
                 gbc.gridy = row;
@@ -222,6 +222,9 @@ public class TableFrame extends JFrame implements ActionListener{
                 data.setOpaque(true);
                 data.setBackground(new Color(50, 50, 50));
                 data.setForeground(new Color(175, 175, 175));
+                if (matrix[row][col] == -1) {
+                    data.setText("-");
+                }
                 gbc.gridy = row;
                 gbc.gridx = col;
                 gridPanel.add(data, gbc);
@@ -240,7 +243,7 @@ public class TableFrame extends JFrame implements ActionListener{
                 {
                     for(int col = 0; col < nodeCount; col++)
                     {
-                        if(matrixTextField[row][col].getText().contains("-") || matrixTextField[row][col].getText().equals("0"))
+                        if(matrixTextField[row][col].getText().contains("-"))
                         {
                             parsedData[row][col] = -1;
                         }
